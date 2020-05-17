@@ -10,7 +10,7 @@ Items will be organized into the format `<namespace>/<name>/<kind>.yaml` and wri
 
 This is beta software and may not be fit for your own use.
 
-YAML is filtered within the dumpItem routine to remove cluster specific elements (such as object uid, selfLink, etc.)
+YAML is filtered within the `dumpItem` function to remove cluster specific elements (such as item's `metadata.uid`, `metadata.selfLink`, some `metadata.annotations`, `status`, etc.)
 
 # Usage
 

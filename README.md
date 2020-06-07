@@ -6,6 +6,14 @@ Split out aggregated cluster YAML dumps to individual files.
 
 Items will be organized into the format `<namespace>/<name>/<kind>.yaml` and written out into a tree beneath the current working path.
 
+The `kubectl get all` command does not return all objects. (See https://github.com/kubernetes/kubectl/issues/151) It is not functionally complete to backup all objects in a cluster.
+
+It is recommended to track YAML being applied to a cluster in source control. Sometimes it is desirable to not track certain types of objects in source control (for instance secrets.) There may be times where it is necessary to have a backup (such as during major version upgrades, cluster maintenance, etc.)
+
+When performing a backup, please ensure the resulting backup or backups contains objects that are critical for your restore.
+
+The script is meant to extract objects from a YAML list for the purpose of performing a targetted restore of specific objects. Additionally the script is not intended to extract all objects for the purpose of a blanket restore.
+
 # Notes
 
 This is beta software and may not be fit for your own use.
@@ -16,6 +24,7 @@ YAML is filtered within the `dumpItem` function to remove cluster specific eleme
 
 ```
 kubectl get all --all-namespaces -o yaml > cluster.yaml
+kubectl get configmaps --all-namespaces -o yaml > configmaps.yaml
 kubectl get ingress --all-namespaces -o yaml > ingress.yaml
 kubectl get secrets --all-namespaces -o yaml > secrets.yaml
 ./k8s-backup-dump.py cluster.yaml ingress.yaml secrets.yaml

@@ -3,9 +3,21 @@
 
 # Usage:
 #   kubectl get all --all-namespaces -o yaml > cluster.yaml
+#   kubectl get configmaps --all-namespaces -o yaml > configmaps.yaml
+#   kubectl get ingress --all-namespaces -o yaml > ingress.yaml
 #   kubectl get secrets --all-namespaces -o yaml > secrets.yaml
 
-#   ./k8s-backup-dump.py cluster.yaml
+#   ./k8s-backup-dump.py cluster.yaml configmaps.yaml ingress.yaml secrets.yaml
+
+# The following types are handled by the script but were not a primary design consideration:
+
+#   kubectl get clusterrole --all-namespaces -o yaml > clusterroles.yaml
+#   kubectl get clusterrolebinding --all-namespaces -o yaml > clusterrolebindings.yaml
+#   kubectl get role --all-namespaces -o yaml > roles.yaml
+#   kubectl get rolebinding --all-namespaces -o yaml > rolebindings.yaml
+#   kubectl get serviceaccount --all-namespaces -o yaml > serviceaccounts.yaml
+
+#   ./k8s-backup-dump.py clusterroles.yaml clusterrolebindings.yaml roles.yaml rolebindings.yaml serviceaccounts.yaml
 
 import yaml
 import sys
@@ -15,12 +27,18 @@ version = '0.0.1'
 debug = False
 
 writeKinds = [
+  'ConfigMap',
+  'ClusterRole',
+  'ClusterRoleBinding',
   'DaemonSet',
   'Deployment',
   'HorizontalPodAutoscaler',
-  'Service',
-  'StatefulSet',
+  'Role',
+  'RoleBinding',
   'Secret',
+  'Service',
+  'ServiceAccount',
+  'StatefulSet',
   'Ingress'
 ]
 

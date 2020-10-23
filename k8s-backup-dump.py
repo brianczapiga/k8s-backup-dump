@@ -72,7 +72,7 @@ def dumpItem(item):
     return None
 
   # Filters
-  removeMetadata = ['selfLink', 'uid', 'creationTimestamp', 'generation', 'resourceVersion']
+  removeMetadata = ['selfLink', 'uid', 'creationTimestamp', 'generation', 'resourceVersion', 'managedFields', 'ownerReferences']
   for metaElement in removeMetadata:
     if metaElement in item['metadata']:
       del item['metadata'][metaElement]
